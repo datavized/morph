@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0, shrink-to-fit=no" />
+		<style type="text/css">
+			path, #labels text {
+				cursor: pointer;
+			}
+			#labels text {
+				display: none;
+			}
+			#labels text:hover {
+				display: inherit;
+			}
+			svg {
+				max-width: 100%;
+				height: auto;
+			}
+
+		</style>
+		<title>INSERT_TITLE_HERE</title>
+	</head>
+	<body>INSERT_SVG_HERE</body>
+	<script>
+	var visibleText = null;
+	function selectElement(e) {
+		if (visibleText) {
+			visibleText.style.display = '';
+		}
+
+
+		var el = e.target;
+		var index = -1;
+		while (el) {
+			if (el.dataset && el.dataset.id !== undefined) {
+				index = parseInt(el.dataset.id, 10);
+				break;
+			}
+			el = el.parentNode;
+		}
+
+		if (index >= 0) {
+			visibleText = document.getElementById('label-' + index);
+			if (visibleText) {
+				visibleText.style.display = 'initial';
+			}
+		}
+	};
+	document.addEventListener('mouseover', selectElement);
+	document.addEventListener('click', selectElement);
+	</script>
+</html>

@@ -1,0 +1,124 @@
+{
+  "fields": [
+    {
+      "name": "Group",
+      "type": "string"
+    },
+    {
+      "name": "Description",
+      "type": "string"
+    },
+    {
+      "name": "Chaired by",
+      "type": "string"
+    },
+    {
+      "name": "Seats",
+      "type": "int",
+      "format": "General",
+      "min": 27,
+      "max": 268,
+      "scale": 0.0037313432835820895
+    }
+  ],
+  "rows": [
+    [
+      "EPP-ED",
+      "Conservatives and Christian Democrats",
+      "Hans-Gert Pöttering",
+      268
+    ],
+    [
+      "PES",
+      "Social Democrats",
+      "Martin Schulz",
+      200
+    ],
+    [
+      "ALDE",
+      "Liberals and Liberal Democrats",
+      "Graham Watson",
+      88
+    ],
+    [
+      "G–EFA",
+      "Greens and Regionalists",
+      "Daniel Cohn-Bendit, Monica Frassoni",
+      42
+    ],
+    [
+      "EUL–NGL",
+      "Communists, Democratic Socialists and the Far left",
+      "Francis Wurtz",
+      41
+    ],
+    [
+      "ID",
+      "Eurosceptics",
+      "Jens-Peter Bonde, Nigel Farage",
+      37
+    ],
+    [
+      "UEN",
+      "National Conservatives",
+      "Brian Crowley, Cristiana Muscardini",
+      27
+    ],
+    [
+      "NI",
+      "Independents and Far right",
+      "none",
+      29
+    ]
+  ],
+  "normalized": [
+    [
+      0.14285714285714285,
+      0.14285714285714285,
+      0.5714285714285714,
+      1
+    ],
+    [
+      0.8571428571428571,
+      1,
+      0.8571428571428571,
+      0.7462686567164178
+    ],
+    [
+      0,
+      0.7142857142857143,
+      0.42857142857142855,
+      0.3283582089552239
+    ],
+    [
+      0.42857142857142855,
+      0.42857142857142855,
+      0.14285714285714285,
+      0.15671641791044777
+    ],
+    [
+      0.2857142857142857,
+      0,
+      0.2857142857142857,
+      0.15298507462686567
+    ],
+    [
+      0.5714285714285714,
+      0.2857142857142857,
+      0.7142857142857143,
+      0.13805970149253732
+    ],
+    [
+      1,
+      0.8571428571428571,
+      0,
+      0.10074626865671642
+    ],
+    [
+      0.7142857142857143,
+      0.5714285714285714,
+      1,
+      0.10820895522388059
+    ]
+  ]
+}
