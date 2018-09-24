@@ -4,11 +4,11 @@ import {
 } from './constants';
 
 export default function PanZoom(element, onPan, onZoom) {
-	function wheel(e) {
-		const delta = e.deltaY === undefined && e.detail !== undefined ? -e.detail : -e.deltaY || 0;
-		const wheelScale = e.deltaMode === 1 ? 100 : 1;
+	function wheel(event) {
+		const delta = event.deltaY === undefined && event.detail !== undefined ? -event.detail : -event.deltaY || 0;
+		const wheelScale = event.deltaMode === 1 ? 100 : 1;
 
-		e.preventDefault();
+		event.preventDefault();
 
 		onZoom(Math.pow(1.0001, delta * wheelScale * ZOOM_SPEED));
 	}
@@ -47,15 +47,15 @@ export default function PanZoom(element, onPan, onZoom) {
 		}
 	}
 
-	function mouseDown(e) {
-		const target = e.target;
+	function mouseDown(event) {
+		const target = event.target;
 		let el = element;
 		while (el !== target && el.parentNode) {
 			el = el.parentNode;
 		}
 		if (el === target) {
-			start(e.pageX, e.pageY);
-			e.preventDefault();
+			start(event.pageX, event.pageY);
+			event.preventDefault();
 		}
 	}
 
@@ -65,16 +65,16 @@ export default function PanZoom(element, onPan, onZoom) {
 		zoomed = false;
 	}
 
-	function mouseMove(e) {
-		const x = e.pageX;
-		const y = e.pageY;
+	function mouseMove(event) {
+		const x = event.pageX;
+		const y = event.pageY;
 		move(x, y);
 	}
 
-	function touchStart(e) {
-		if (e.touches.length === 1) {
-			start(e.touches[0].pageX, e.touches[0].pageY);
-		} else if (e.touches.length === 2) {
+	function touchStart(event) {
+		if (event.touches.length === 1) {
+			start(event.touches[0].pageX, event.touches[0].pageY);
+		} else if (event.touches.length === 2) {
 			const t0 = event.touches[0];
 			const t1 = event.touches[1];
 			const dx = t0.pageX - t1.pageX;
@@ -83,10 +83,10 @@ export default function PanZoom(element, onPan, onZoom) {
 		}
 	}
 
-	function touchMove(e) {
-		e.preventDefault();
+	function touchMove(event) {
+		event.preventDefault();
 
-		if (e.touches.length === 2) {
+		if (event.touches.length === 2) {
 			const t0 = event.touches[0];
 			const t1 = event.touches[1];
 			const dx = t0.pageX - t1.pageX;
@@ -99,20 +99,20 @@ export default function PanZoom(element, onPan, onZoom) {
 
 			onZoom(factor);
 
-			e.preventDefault();
-			e.stopPropagation();
+			event.preventDefault();
+			event.stopPropagation();
 
 			return;
 		}
 
 		if (!zoomed) {
 			//todo: invert x direction on iOS
-			move(e.touches[0].pageX, e.touches[0].pageY);
+			move(event.touches[0].pageX, event.touches[0].pageY);
 		}
 	}
 
-	function touchEnd(e) {
-		if (!e.touches.length || e.touches.length < 2 && zoomed) {
+	function touchEnd(event) {
+		if (!event.touches.length || event.touches.length < 2 && zoomed) {
 			stop();
 		}
 	}
