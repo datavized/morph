@@ -1,6 +1,7 @@
 /* global DEBUG */
 import XLSX from 'xlsx';
 import { MAX_DATA_FILE_SIZE, UPLOAD_ROW_LIMIT } from '../constants';
+import serializeError from 'serialize-error';
 
 const rABS = false; // true: readAsBinaryString ; false: readAsArrayBuffer
 
@@ -245,6 +246,7 @@ function readFile(message) {
 
 		// let rows = null;
 		// let fields = null;
+		let errorMessage = '';
 		let error = null;
 		try {
 			workbook = XLSX.read(data, {
@@ -276,12 +278,14 @@ function readFile(message) {
 				return;
 			}
 		} catch (e) {
-			error = e.useMessage && e.message || 'Error reading spreadsheet file.';
+			error = e;
+			errorMessage = e.useMessage && e.message || 'Error reading spreadsheet file.';
 			console.warn('Error reading spreadsheet.', e);
 		}
 
 		postMessage({
-			error: error || 'No data found in spreadsheet.'
+			errorMessage: errorMessage || 'No data found in spreadsheet.',
+			error: serializeError(error)
 		});
 	};
 	if (rABS) {

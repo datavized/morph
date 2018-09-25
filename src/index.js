@@ -3,31 +3,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import onNewServiceWorker from './util/onNewServiceWorker';
+import reportError from './util/reportError';
 
 import './index.css';
 import Main from './components/Main';
 
-const handleError = event => {
-	console.error(event.error || event);
-
-	const details = event instanceof window.ErrorEvent ?
-		[
-			(event.filename || '').replace(window.location.origin, ''),
-			event.lineno,
-			event.colno
-		].join(':') :
-		event.toString();
-	window.ga('send', 'exception', {
-		exDescription: `${event.message} [${details}]`
-	});
-};
-
 if (window.ga) {
+	console.log('attaching error listener');
 	window.ga('set', {
 		appName: 'morph',
 		appVersion: COMMIT_HASH
 	});
-	window.addEventListener('error', handleError);
+	window.addEventListener('error', reportError);
 }
 console.log(`Morph by Datavized Technologies (build ${COMMIT_HASH})`);
 
@@ -39,14 +26,14 @@ let render = () => {};
 if (module.hot) {
 	const { AppContainer } = require('react-hot-loader');
 	render = () => {
-		ReactDOM.render(<AppContainer><Main upgradeReady={upgradeReady} onError={handleError}/></AppContainer>, rootEl);
+		ReactDOM.render(<AppContainer><Main upgradeReady={upgradeReady} onError={reportError}/></AppContainer>, rootEl);
 	};
 
 	render();
 	module.hot.accept('./components/Main', render);
 } else {
 	render = () => {
-		ReactDOM.render(<Main upgradeReady={upgradeReady} onError={handleError}/>, rootEl);
+		ReactDOM.render(<Main upgradeReady={upgradeReady} onError={reportError}/>, rootEl);
 	};
 	render();
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import classNames from 'classnames';
 import { fromJS, Map } from 'immutable';
+import reportError from '../util/reportError';
 
 import UploadWorker from 'worker-loader!../workers/upload.js';
 import { MAX_DATA_FILE_SIZE } from '../constants';
@@ -147,9 +148,10 @@ const Def = class Upload extends Section {
 		if (responseData.error) {
 			this.destroyUploadWorker();
 			this.setState({
-				fileError: responseData.error,
+				fileError: responseData.errorMessage,
 				waiting: false
 			});
+			reportError(responseData.error);
 			return;
 		}
 
