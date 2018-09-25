@@ -77,10 +77,7 @@ const VERSION = (() => {
 })();
 
 const plugins = [
-	new CaseSensitivePathsPlugin(),
-	new CleanWebpackPlugin(['build/**/*'], {
-		verbose: false
-	})
+	new CaseSensitivePathsPlugin()
 ];
 
 const config = {
@@ -365,6 +362,9 @@ const distConfig = {
 		}
 	},
 	plugins: [
+		new CleanWebpackPlugin(['build/**/*'], {
+			verbose: false
+		}),
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify('production'),
 			DEBUG: false,

@@ -9,7 +9,6 @@ import './index.css';
 import Main from './components/Main';
 
 if (window.ga) {
-	console.log('attaching error listener');
 	window.ga('set', {
 		appName: 'morph',
 		appVersion: COMMIT_HASH
