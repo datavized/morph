@@ -44,6 +44,7 @@ function readWorksheet(worksheetName) {
 
 	let minCol = Infinity;
 	let minRow = Infinity;
+	let maxCol = -Infinity;
 	const rows = [];
 	for (const cell in worksheet) {
 		if (worksheet.hasOwnProperty(cell) && cell.charAt(0) !== '!') {
@@ -53,6 +54,7 @@ function readWorksheet(worksheetName) {
 
 			minCol = Math.min(col, minCol);
 			minRow = Math.min(row, minRow);
+			maxCol = Math.max(col, maxCol);
 
 			if (!rows[row]) {
 				rows[row] = [];
@@ -68,6 +70,7 @@ function readWorksheet(worksheetName) {
 	if (minCol > 0) {
 		rows.forEach(row => row.splice(0, minCol));
 	}
+	maxCol -= minCol;
 
 	// remove all blank/empty rows
 	for (let i = rows.length - 1; i >= 0; i--) {
@@ -76,12 +79,16 @@ function readWorksheet(worksheetName) {
 		}
 	}
 
-	// for now assume there is always a header row
-	const fields = rows.shift().map(cell => ({
-		name: cell.w || cell.v,
-		types: ['float', 'int', 'datetime', 'boolean'],
-		type: 'string'
-	}));
+	const fields = [];
+	const firstRow = rows.shift();
+	for (let i = 0; i <= maxCol; i++) {
+		const cell = firstRow[i];
+		fields.push(cell ? {
+			name: cell.w || cell.v,
+			types: ['float', 'int', 'datetime', 'boolean'],
+			type: 'string'
+		} : null);
+	}
 
 	// throw out any rows beyond our fixed limit
 	if (rows.length > UPLOAD_ROW_LIMIT) {
