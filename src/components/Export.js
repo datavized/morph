@@ -513,7 +513,9 @@ const Def = class Export extends React.Component {
 			if (draw.destroy) {
 				draw.destroy();
 			}
-			app.destroy();
+			try {
+				app.destroy();
+			} catch (e) {}
 		}, mime);
 	}
 
@@ -729,7 +731,9 @@ const Def = class Export extends React.Component {
 			if (draw.destroy) {
 				draw.destroy();
 			}
-			app.destroy();
+			try {
+				app.destroy();
+			} catch (e) {}
 		};
 
 		me.frameId = requestIdleCallback(renderFrames);

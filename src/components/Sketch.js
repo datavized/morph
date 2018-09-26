@@ -215,7 +215,9 @@ const Def = class Sketch extends React.Component {
 				view = this.pixiApp.renderer.view;
 				context = this.pixiApp.renderer.context;
 
-				this.pixiApp.destroy();
+				try {
+					this.pixiApp.destroy();
+				} catch (e) {}
 			}
 
 			const pixiOptions = assign({}, defaultPixiOptions, {
@@ -262,7 +264,9 @@ const Def = class Sketch extends React.Component {
 			if (context) {
 				contexts.push(context);
 			}
-			this.pixiApp.destroy();
+			try {
+				this.pixiApp.destroy();
+			} catch (e) {}
 			this.pixiApp = null;
 		}
 	}
