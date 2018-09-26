@@ -326,7 +326,7 @@ export default function drawChart(container) {
 			textContainer.visible = showLabels;
 			if (needTextUpdate && showLabels) {
 				fontSize = newFontSize;
-				setLabels(textContainer, groups, groupIndices, sourceData, fontSize);
+				setLabels(textContainer, groups, groupIndices, sourceData, fontSize, textColor);
 			}
 
 			[xOffset, yOffset, boundsScale] = mutateChart(chart, groups, groupIndices, sourceData, genes, textColor);
