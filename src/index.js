@@ -21,18 +21,19 @@ const rootEl = document.getElementById('root');
 
 let upgradeReady = false;
 let render = () => {};
+const MainWithProps = () => <Main upgradeReady={upgradeReady} onError={reportError}/>;
 
 if (module.hot) {
 	const { AppContainer } = require('react-hot-loader');
 	render = () => {
-		ReactDOM.render(<AppContainer><Main upgradeReady={upgradeReady} onError={reportError}/></AppContainer>, rootEl);
+		ReactDOM.render(<AppContainer><MainWithProps/></AppContainer>, rootEl);
 	};
 
 	render();
 	module.hot.accept('./components/Main', render);
 } else {
 	render = () => {
-		ReactDOM.render(<Main upgradeReady={upgradeReady} onError={reportError}/>, rootEl);
+		ReactDOM.render(<MainWithProps/>, rootEl);
 	};
 	render();
 }
@@ -51,6 +52,4 @@ if (!module.hot || DEBUG_SERVICE_WORKER) {
 			});
 		});
 	}
-
-	ReactDOM.render(<Main />, rootEl);
 }
