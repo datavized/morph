@@ -119,6 +119,6 @@
 		"vec2-copy": "^1.0.0",
 		"webm-writer": "^0.2.1",
 		"worker-loader": "^2.0.0",
-		"xlsx": "^0.14.0"
+		"xlsx": "^0.17.0"
 	}
 }
